@@ -1,0 +1,5 @@
+.DS_Store
+.idea/
+Varsling.iml
+node_modules/
+target/
