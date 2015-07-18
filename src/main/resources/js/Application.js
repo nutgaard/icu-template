@@ -1,44 +1,37 @@
 import React from 'react';
-import StoreAeareComponent from './components/StoreAwareComponent.js';
-import HenvendelseStore from './stores/HenvendelseStore.js';
-import Actions from './actions/Actions.js';
-import WebAPI from './WebAPI';
+import { RouteHandler } from 'react-router';
+import mui from 'material-ui';
 
-function getState() {
-    return {};
-}
+let ThemeManager = new mui.Styles.ThemeManager();
+ThemeManager.setTheme(ThemeManager.types.LIGHT);
 
+import Header from './components/Header.js';
+import Centering from './components/Centering.js';
 
-class Application extends StoreAwareComponent {
-    constructor(props) {
-        super(props, HenvendelseStore);
-        this.state = getState();
+class Application extends React.Component {
 
-
-        //En negativ side ved ES6, auto-binding fra React funker ikke. :(
-        this._onChange = this._onChange.bind(this);
-    }
-
-    componentDidMount() {
-        HenvendelseStore.addChangeListener(this._onChange);
-    }
-
-    componentWillUnmount() {
-        HenvendelseStore.removeChangeListener(this._onChange);
-    }
-
-    _onChange() {
-        this.setState(getState());
+    getChildContext() {
+        return {
+            muiTheme: ThemeManager.getCurrentTheme()
+        };
     }
 
     render() {
         return (
             <div className="application">
-                <h1 className="hoved-header">Henvendelse-Datomic</h1>
+                <Header></Header>
+                <div className="content">
+                    <Centering>
+                        <RouteHandler />
+                    </Centering>
+                </div>
             </div>
         );
-
     }
 }
+
+Application.childContextTypes = {
+    muiTheme: React.PropTypes.object
+};
 
 export default Application;
