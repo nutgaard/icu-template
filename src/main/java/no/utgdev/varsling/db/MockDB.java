@@ -8,16 +8,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static java.time.LocalDateTime.now;
 import static java.util.Optional.ofNullable;
 
 public class MockDB implements DB {
     private Map<String, Mal> maler = new HashMap<>();
 
     public MockDB() {
-        upsertMal("1", new Mal("1"));
-        upsertMal("2", new Mal("2"));
-        upsertMal("3", new Mal("3"));
-        upsertMal("4", new Mal("4"));
+        upsertMal("1", new Mal("1", "Mal 1", now().minusDays(1)));
+        upsertMal("2", new Mal("2", "Mal 2", now().minusHours(1)));
+        upsertMal("3", new Mal("3", "Mal 3", now()));
+        upsertMal("4", new Mal("4", "Mal 4", now().minusDays(2)));
     }
 
 
@@ -46,7 +47,8 @@ public class MockDB implements DB {
     @Override
     public Mal leggTil(Mal mal) {
         String id = Utils.getID();
-        mal.id = id;
+        mal.withId(id).withOpprettetDato(now());
+
         upsertMal(id, mal);
         return mal;
     }

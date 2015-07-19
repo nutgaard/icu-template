@@ -1,6 +1,7 @@
 import React from 'react';
 import RouterMixin from './../utils/RouterMixinShim.js';
 import { Paper, RaisedButton } from 'material-ui';
+import { delay } from './../utils/utils.js';
 
 const buttonstyles = {
     "marginRight": "1rem",
@@ -21,8 +22,8 @@ class Forside extends React.Component {
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque, consectetur culpa cupiditate delectus dolore est et eum illum, inventore iusto nisi non officia placeat qui repellat repellendus vel voluptatibus.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus eius maiores nemo quaerat voluptatibus! Assumenda at atque dignissimos dolores, eos expedita facere fugiat necessitatibus nobis officiis praesentium quam quo totam.</p>
 
-                <RaisedButton linkButton={true} label="Malverk" style={buttonstyles}onClick={this.props.navigation.transitionTo.bind(null, 'admin')} />
-                <RaisedButton linkButton={true} label="Forhåndsvisning" style={buttonstyles} onClick={this.props.navigation.transitionTo.bind(null, 'visning')} />
+                <RaisedButton linkButton={true} label="Malverk" style={buttonstyles}onClick={delay(this.props.navigation.transitionTo.bind(null, 'admin'))} />
+                <RaisedButton linkButton={true} label="Forhåndsvisning" style={buttonstyles} onClick={delay(this.props.navigation.transitionTo.bind(null, 'visning'))} />
             </Paper>
         );
 

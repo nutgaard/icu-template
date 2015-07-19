@@ -1,7 +1,8 @@
 import React from 'react';
 import StoreAwareComponent from './StoreAwarePage.js';
-import HenvendelseStore from './../stores/HenvendelseStore.js';
+import MalStore from './../stores/MalStore.js';
 import Actions from './../actions/Actions.js';
+import { Paper } from 'material-ui';
 
 function getState() {
     return {};
@@ -10,7 +11,7 @@ function getState() {
 
 class Visning extends StoreAwareComponent {
     constructor(props) {
-        super(props, HenvendelseStore);
+        super(props, MalStore);
         this.state = getState();
     }
 
@@ -20,9 +21,9 @@ class Visning extends StoreAwareComponent {
 
     render() {
         return (
-            <div className="sidevisning">
+            <Paper className="sidevisning">
                 <h1 className="hoved-header">Visning</h1>
-            </div>
+            </Paper>
         );
 
     }

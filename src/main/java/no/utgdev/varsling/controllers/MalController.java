@@ -2,10 +2,7 @@ package no.utgdev.varsling.controllers;
 
 import no.utgdev.varsling.db.DB;
 import no.utgdev.varsling.domain.Mal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -35,7 +32,7 @@ public class MalController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Mal leggTil(Mal mal) {
+    public Mal leggTil(@RequestBody Mal mal) {
         return db.leggTil(mal);
     }
 
