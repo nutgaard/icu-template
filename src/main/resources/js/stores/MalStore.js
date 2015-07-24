@@ -42,6 +42,32 @@ ActionHandlers[Constants.VELG_MAL] = (action) => {
     _valgtMal = action.data;
 };
 
+ActionHandlers[Constants.LEGG_TIL_KANAL_OK] = (action) => {
+    let nyMal = action.data;
+    let eksisterendeMal = _maler.filter((mal) => {
+        return mal.id = nyMal.id;
+    });
+
+    if (eksisterendeMal) {
+        eksisterendeMal.maler = nyMal.maler;
+    } else {
+        _maler.push(mal);
+    }
+};
+
+ActionHandlers[Constants.SLETT_KANAL_OK] = (action) => {
+    let nyMal = action.data;
+    let eksisterendeMal = _maler.filter((mal) => {
+        return mal.id = nyMal.id;
+    });
+
+    if (eksisterendeMal) {
+        eksisterendeMal.maler = nyMal.maler;
+    } else {
+        _maler.push(mal);
+    }
+
+};
 
 AppDispatcher.register(function (action) {
     var callback = ActionHandlers[action.actionType];

@@ -75,7 +75,6 @@ class MalAdmin extends StoreAwareComponent {
             {text: 'Cancel', ref: 'avbryt'},
             {text: 'Submit', onTouchTap: this._onDialogSubmit, ref: 'submit'}
         ];
-
         return (
             <Paper className="sidevisning maladmin">
                 <h1 className="hoved-header">Maler</h1>

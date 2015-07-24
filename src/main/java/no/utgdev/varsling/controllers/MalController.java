@@ -37,7 +37,7 @@ public class MalController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Mal upsert(@PathVariable("id") String id, Mal mal) {
+    public Mal upsert(@PathVariable("id") String id, @RequestBody Mal mal) {
         return db.upsertMal(id, mal);
     }
 
