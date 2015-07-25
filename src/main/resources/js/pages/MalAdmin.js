@@ -37,12 +37,7 @@ class MalAdmin extends StoreAwareComponent {
 
     _onDialogSubmit() {
         let value = this.refs.malnavn.getValue();
-
-        if (!value || value.length == 0) {
-            this.setState({feilmelding: "Dette felted må være fylt ut."});
-        } else {
-            Actions.nyMal(value, this.refs.dialog);
-        }
+        Actions.nyMal(value, this.refs.dialog);
     }
 
     render() {

@@ -44,7 +44,7 @@ ActionHandlers[Constants.LAG_NY_OK] = (action) => {
 };
 
 ActionHandlers[Constants.LAG_NY_FEIL] = (action) => {
-    _feilmelding = 'Det skjedde en feil ved lagring av malen.';
+    _feilmelding = action.data;
 };
 
 ActionHandlers[Constants.VELG_MAL] = (action) => {
