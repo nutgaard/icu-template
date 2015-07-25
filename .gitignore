@@ -3,3 +3,5 @@
 Varsling.iml
 node_modules/
 target/
+index.css
+index.dist.js

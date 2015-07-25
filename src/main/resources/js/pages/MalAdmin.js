@@ -13,11 +13,9 @@ class MalAdmin extends StoreAwareComponent {
         super(props, MalStore);
 
         this.state = this.getState();
-        this.state.errorMessage = '';
 
         this._openDialog = this._openDialog.bind(this);
         this._onDialogSubmit = this._onDialogSubmit.bind(this);
-        this.lagNyMal = this.lagNyMal.bind(this);
     }
 
     componentDidMount() {
@@ -28,7 +26,8 @@ class MalAdmin extends StoreAwareComponent {
     getState() {
         return {
             maler: MalStore.hentAlle(),
-            valgtMal: MalStore.valgtMal()
+            valgtMal: MalStore.valgtMal(),
+            feilmelding: MalStore.getFeilmelding()
         };
     }
 
@@ -40,27 +39,10 @@ class MalAdmin extends StoreAwareComponent {
         let value = this.refs.malnavn.getValue();
 
         if (!value || value.length == 0) {
-            this.setState({errorMessage: "Dette felted må være fylt ut."});
+            this.setState({feilmelding: "Dette felted må være fylt ut."});
         } else {
-            this.lagNyMal(value);
+            Actions.nyMal(value, this.refs.dialog);
         }
-    }
-
-    lagNyMal(malnavn) {
-        let that = this;
-        http
-            .post('/rest/mal')
-            .send({navn: malnavn})
-            .end((err, resp) => {
-                if (err) {
-                    that.setState({
-                        errorMessage: resp.body
-                    });
-                } else {
-                    Actions.nyMal(resp.body);
-                    that.refs.dialog.dismiss();
-                }
-            });
     }
 
     render() {
@@ -85,7 +67,7 @@ class MalAdmin extends StoreAwareComponent {
 
                 <Dialog title="Legg til ny mal" actions={standardActions} actionFocus="submit" ref="dialog">
                     <TextField
-                        errorText={this.state.errorMessage}
+                        errorText={this.state.feilmelding}
                         hintText="Malnavn"
                         floatingLabelText="Legg til ny mal" ref="malnavn"/>
                 </Dialog>

@@ -4,6 +4,7 @@ import Constants from './../Constants.js';
 
 let _maler = [];
 let _valgtMal = null;
+let _feilmelding = null;
 
 class MalStore extends Store {
     constructor() {
@@ -16,6 +17,10 @@ class MalStore extends Store {
 
     valgtMal() {
         return _valgtMal;
+    }
+
+    getFeilmelding() {
+        return _feilmelding;
     }
 }
 
@@ -36,6 +41,10 @@ ActionHandlers[Constants.HENT_ALLE_OK] = (action) => {
 ActionHandlers[Constants.LAG_NY_OK] = (action) => {
     _maler = [action.data].concat(_maler);
     _valgtMal = _maler[0];
+};
+
+ActionHandlers[Constants.LAG_NY_FEIL] = (action) => {
+    _feilmelding = 'Det skjedde en feil ved lagring av malen.';
 };
 
 ActionHandlers[Constants.VELG_MAL] = (action) => {

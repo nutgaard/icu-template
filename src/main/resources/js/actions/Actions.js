@@ -21,8 +21,18 @@ let Actions = {
                 }
             });
     },
-    nyMal: (mal) => {
-        dispatch(Constants.LAG_NY_OK, mal);
+    nyMal: (malnavn, dialog) => {
+        let that = this;
+        http
+            .post('/rest/mal')
+            .send({navn: malnavn})
+            .end((err, resp) => {
+                if (err) dispatch(Constants.LAG_NY_FEIL, resp);
+                else {
+                    dispatch(Constants.LAG_NY_OK, resp.body);
+                    dialog.dismiss();
+                }
+            });
     },
     velgMal: (mal) => {
         dispatch(Constants.VELG_MAL, mal);
