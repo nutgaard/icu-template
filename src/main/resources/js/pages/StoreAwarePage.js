@@ -1,21 +1,25 @@
 import React from 'react';
 
 class StoreAwareComponent extends React.Component {
-    constructor(props, store) {
+    constructor(props, stores) {
         super(props);
         this._onChange = this._onChange.bind(this);
         this.getState = this.getState.bind(this);
 
-        this.store = store;
+        this.stores = Array.isArray(stores) ? stores : [stores];
         this.state = this.getState();
     }
 
     componentDidMount() {
-        this.store.addChangeListener(this._onChange);
+        this.stores.forEach(function (store) {
+            store.addChangeListener(this._onChange);
+        }.bind(this));
     }
 
     componentWillUnmount() {
-        this.store.removeChangeListener(this._onChange);
+        this.stores.forEach(function (store) {
+            store.removeChangeListener(this._onChange);
+        }.bind(this));
     }
 
     getState() {

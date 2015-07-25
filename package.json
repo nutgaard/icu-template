@@ -13,6 +13,7 @@
     "material-ui": "^0.10.1",
     "messageformat": "^0.2.2",
     "moment": "^2.10.3",
+    "object-assign": "^3.0.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
     "react-tap-event-plugin": "^0.1.7",

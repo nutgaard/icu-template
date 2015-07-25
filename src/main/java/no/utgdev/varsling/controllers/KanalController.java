@@ -13,5 +13,5 @@ public class KanalController {
     public Kanal[] hentAlle() {
         return Kanal.values();
     }
-    
+
 }

@@ -4,6 +4,7 @@ let MenuItem = require('material-ui/lib/menus/menu-item');
 import VerticalIcon from './MoreVerticalIcon.js';
 import KanalMal from './KanalMal.js';
 import Actions from './../actions/Actions.js';
+import assign from 'object-assign';
 
 
 class Malredigering extends React.Component {
@@ -19,7 +20,19 @@ class Malredigering extends React.Component {
     }
 
     _lagreMal() {
-        Actions.lagreMal(this.props.mal);
+        let nyMaler = Object.keys(this.refs)
+            .filter((ref) => {
+                return ref.startsWith('kanal.');
+            })
+            .map(ref => {
+                let idx = ref.indexOf(".");
+                return {kanal: ref.substring(idx + 1), mal: this.refs[ref].getValue()};
+            });
+
+        let nyMal = assign({}, this.props.mal);
+        nyMal.maler = nyMaler;
+
+        Actions.lagreMal(nyMal);
     }
 
     render() {
@@ -28,17 +41,16 @@ class Malredigering extends React.Component {
         }
 
         let kanalmaler = this.props.mal.maler.map((kanalmal) => {
-            return <KanalMal key={kanalmal.kanal} mal={this.props.mal} kanalmal={kanalmal}/>;
+            return <KanalMal key={kanalmal.mal} mal={this.props.mal} kanalmal={kanalmal} ref={'kanal.' + kanalmal.kanal}/>;
         });
 
-
-        let kanaler = ['NAV', 'MAIL', 'SMS'];
         let eksisterendeKanaler = this.props.mal.maler.map((mal) => {
             return mal.kanal;
         });
 
+
         let that = this;
-        let leggTilOptions = kanaler
+        let leggTilOptions = this.props.kanaler
             .filter((kanal) => {
                 return eksisterendeKanaler.indexOf(kanal) === -1;
             })
@@ -55,7 +67,9 @@ class Malredigering extends React.Component {
 
         return (
             <Paper className="malredigering">
-                <IconMenu iconButtonElement={<IconButton><VerticalIcon /></IconButton>} style={style}>
+                <IconMenu iconButtonElement={<IconButton>
+                    <VerticalIcon />
+                </IconButton>} style={style}>
                     {leggTilOptions}
                 </IconMenu>
 

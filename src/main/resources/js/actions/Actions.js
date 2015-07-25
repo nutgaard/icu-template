@@ -64,6 +64,14 @@ let Actions = {
                     dispatch(Constants.LAGRE_MAL_OK, resp.body);
                 }
             });
+    },
+    hentKanaler: () => {
+        http
+            .get('/rest/kanal')
+            .end((err, resp) => {
+                if (err) dispatch(Constants.HENT_KANALER_FEIL, resp.body);
+                else dispatch(Constants.HENT_KANALER_OK, resp.body);
+            });
     }
 };
 

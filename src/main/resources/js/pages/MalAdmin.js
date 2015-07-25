@@ -1,6 +1,7 @@
 import React from 'react';
 import StoreAwareComponent from './StoreAwarePage.js';
 import MalStore from './../stores/MalStore.js';
+import KanalStore from './../stores/KanalStore.js';
 import Actions from './../actions/Actions.js';
 import Malvalg from './../components/Malvalg.js';
 import Malredigering from './../components/Malredigering.js';
@@ -10,7 +11,7 @@ import http from 'superagent';
 
 class MalAdmin extends StoreAwareComponent {
     constructor(props) {
-        super(props, MalStore);
+        super(props, [MalStore, KanalStore]);
 
         this.state = this.getState();
 
@@ -20,12 +21,14 @@ class MalAdmin extends StoreAwareComponent {
 
     componentDidMount() {
         super.componentDidMount();
+        Actions.hentKanaler();
         Actions.hentAlle();
     }
 
     getState() {
         return {
             maler: MalStore.hentAlle(),
+            kanaler: KanalStore.hentAlle(),
             valgtMal: MalStore.valgtMal(),
             feilmelding: MalStore.getFeilmelding()
         };
@@ -52,12 +55,13 @@ class MalAdmin extends StoreAwareComponent {
             {text: 'Cancel', ref: 'avbryt'},
             {text: 'Submit', onTouchTap: this._onDialogSubmit, ref: 'submit'}
         ];
+
         return (
             <Paper className="sidevisning maladmin">
                 <h1 className="hoved-header">Maler</h1>
                 <RaisedButton label="Ny mal" style={buttonStyle} onTouchTap={this._openDialog}/>
                 <Malvalg maler={this.state.maler} valgtMal={this.state.valgtMal} />
-                <Malredigering mal={this.state.valgtMal} />
+                <Malredigering mal={this.state.valgtMal} kanaler={this.state.kanaler}/>
 
 
                 <Dialog title="Legg til ny mal" actions={standardActions} actionFocus="submit" ref="dialog">

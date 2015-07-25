@@ -11,7 +11,9 @@ const Constants = keymirror({
     SLETT_KANAL_OK: null,
     SLETT_KANAL_FEIL: null,
     LAGRE_MAL_OK: null,
-    LAGRE_MAL_FEIL: null
+    LAGRE_MAL_FEIL: null,
+    HENT_KANALER_OK: null,
+    HENT_KANALER_FEIL: null
 });
 
 export default Constants;

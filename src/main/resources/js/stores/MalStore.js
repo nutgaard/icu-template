@@ -1,5 +1,6 @@
 import AppDispatcher from './../AppDispatcher.js';
 import Store from './Store.js';
+import KanalStore from './KanalStore.js';
 import Constants from './../Constants.js';
 
 let _maler = [];
@@ -8,7 +9,7 @@ let _feilmelding = null;
 
 class MalStore extends Store {
     constructor() {
-        super('change-event');
+        super('change-event-mal');
     }
 
     hentAlle() {
@@ -30,6 +31,7 @@ let _MalStore = new MalStore();
 const ActionHandlers = {};
 
 ActionHandlers[Constants.HENT_ALLE_OK] = (action) => {
+    AppDispatcher.waitFor([KanalStore.dispatchToken]);
     _maler = action.data.sort((a, b) => {
         return b.opprettet - a.opprettet;
     });
@@ -78,7 +80,7 @@ ActionHandlers[Constants.SLETT_KANAL_OK] = (action) => {
 
 };
 
-AppDispatcher.register(function (action) {
+_MalStore.dispatchToken = AppDispatcher.register(function (action) {
     var callback = ActionHandlers[action.actionType];
 
     if (typeof callback === 'function') {
